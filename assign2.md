@@ -108,6 +108,7 @@ Following graph will show the top 10 deadly severe weather events accross U.S. f
 
 
 ```r
+par(mai=c(1, 1, 1, 1))
 dt1_ordered <- dt1[order(-dt1$FATALITIES),]
 dt1_top10 <- dt1_ordered[1:10,]
 dt1_top10
@@ -150,6 +151,7 @@ Following graph will show the top 10 costly severe weather events accross U.S. f
 
 
 ```r
+par(mai=c(1, 1, 1, 1))
 dt2_ordered <- dt2[order(-dt2$PROPDMG),]
 dt2_top10 <- dt2_ordered[1:10,]
 dt2_top10
@@ -183,7 +185,10 @@ dt2_xaxis_label
 ```
 
 ```r
-barplot(dt2_top10$PROPDMG,main="Top 10 costly severe weather events", ylab="Total damage in millions",names.arg = dt2_xaxis_label, las = 2)
+barplot(dt2_top10$PROPDMG,main="Top 10 costly severe weather events damage in millions", names.arg = dt2_xaxis_label, las = 2)
 ```
 
 ![](assign2_files/figure-html/unnamed-chunk-2-1.png) 
+
+
+
