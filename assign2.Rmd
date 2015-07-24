@@ -8,12 +8,12 @@ output:
 ---
 
 #Synopsis
-In this report we try to find out which severe weather event is most harmful to population and which severe weather event is most costly to economy through all the states. This study will be based on the storm data compiled by National Oceanic and Atmospheric Administration (NOAA). This data covers the severe wether events from 1950 to November of 2011. 
+
+In this report we try to find out which severe weather event is most deadly to population and which severe weather event is most costly to economy accross U.S. This study will use the storm data compiled by National Oceanic and Atmospheric Administration (NOAA). This data covers the severe wether events from 1950 to November of 2011. 
 
 
-The data set is coming from ...
+#Data Processing
 
-#Loading and Processing the Raw Data
 ##Reading the whole data 
 
 ```{r load}
@@ -31,50 +31,52 @@ num_records <- NROW(dt0)
 ```
 There are `r num_records` in `r filename` dataset. 
 
-## Checking data set especially FATALITIES, and PROPDMG
-Show first few rows of records for the first six variables.
+## Checking data set variables especially FATALITIES, and PROPDMG for missing data
+
+Show first few rows of records for the first seven variables.
 
 ```{r head}
-head(dt0[,1:6])
+head(dt0[,1:7])
 ```
 
 
-We are retrieving the FATALITIES to a dataset called fatality and PROPDMG to a dataset called propdmg. We will use the summary function in R to show some simple summaries of these two datasets. 
+Since We are interesting FATALITIES and PROPDMG variables from the dataset, we are retrieving FATALITIES to a dataset called fatality and PROPDMG to a dataset called propdmg. We will use the summary function in R to show some simple summaries of these two datasets. 
 
 ```{r getvarialbe}
-# show the first few line of records
-evtype <- dt0$EVTYPE
 fatality <- dt0$FATALITIES
 summary(fatality)
+
 propdmg <- dt0$PROPDMG
 summary(propdmg)
 ```
 
-From above code you can see that there are no missing values for both FATALITIES and PROMDMG variables from the original datasets and this is good for the following data analysis. 
+From the simple summaries we can see that there are no missing values for both FATALITIES and PROMDMG variables from the original datasets and this is good for the following data analysis. 
 
 
 #Result
-## Entire U.S. analysis
-```{r analysis}
 
+## Entire U.S. analysis
+
+### Find out which severe weather event is most deadly accorss the U.S. from 1950 to November 2011. 
+
+We will sum up all the death records by severe weather event type and sum up all the property damage by the severe weather event type. Then we will find out which severe weather event from both sum of sub dataset has the maximum value for total death and total property damage. 
+
+
+```{r analysis}
 dt1 <- aggregate(FATALITIES ~ EVTYPE, data = dt0, FUN=sum)
 
 event1 <- dt1[which.max(dt1$FATALITIES),1]
 total_death <- dt1[which.max(dt1$FATALITIES),2]
 
 dt2 <- aggregate(PROPDMG ~ EVTYPE, data = dt0, FUN = sum)
-event2 <- dt2[which.max(dt2$PROMDMG),1]
+event2 <- dt2[which.max(dt2$PROPDMG),1]
 total_damage <- dt2[which.max(dt2$PROPDMG),2]
 ```
 
-`r event1` is the most deadly severe weather event accross U.S. from 1950 to November 2011. 
-Total death for `r event1` is `r total_death`.
-
-`r event2` is the most costly severe weather event accross U.S. from 1950 to November 2011. 
-Total damage cost for `r event2` is `r total_damage` millions U.S. dollars. 
+After the analysis, we find out - **`r event1`** is the most deadly severe weather event accross U.S. from 1950 to November 2011 which has a total **`r total_death`** people dead and **`r event2`** is the most costly severe weather event accross U.S. from 1950 to November 2011 which cause U.S. **`r total_damage`** millions U.S. dollars. 
 
 
-Following graph will show the top 10 deadly severe weather events accross U.S. from 1950 to November 2011.
+Following graph will show the top tep deadly severe weather events accross U.S. from 1950 to November 2011 with most casualties. 
 
 
 ```{r}
@@ -88,7 +90,7 @@ barplot(dt1_top10$FATALITIES,main="Top 10 deadly severe weather events", ylab="T
 
 ```
 
-Following graph will show the top 10 costly severe weather events accross U.S. from 1950 to November 2011.
+Following graph will show the top 10 costly severe weather events accross U.S. from 1950 to November 2011 with millions dollars lost. 
 
 
 ```{r}

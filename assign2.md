@@ -3,10 +3,8 @@ Shinkuang Chang
 July 23, 2015  
 
 #Synopsis
-In this report we try to find out which severe weather event is most harmful to population and which severe weather event is most costly to economy through all the states. This study will be based on the storm data compiled by National Oceanic and Atmospheric Administration (NOAA). This data covers the severe wether events from 1950 to November of 2011. 
+In this report we try to find out which severe weather event is most deadly to population and which severe weather event is most costly to economy accross U.S. This study will use the storm data compiled by National Oceanic and Atmospheric Administration (NOAA). This data covers the severe wether events from 1950 to November of 2011. 
 
-
-The data set is coming from ...
 
 #Loading and Processing the Raw Data
 ##Reading the whole data 
@@ -36,30 +34,28 @@ num_records <- NROW(dt0)
 There are 902297 in repdata_data_StormData.csv dataset. 
 
 ## Checking data set especially FATALITIES, and PROPDMG
-Show first few rows of records for the first six variables.
+Show first few rows of records for the first seven variables.
 
 
 ```r
-head(dt0[,1:6])
+head(dt0[,1:7])
 ```
 
 ```
-##   STATE__           BGN_DATE BGN_TIME TIME_ZONE COUNTY COUNTYNAME
-## 1       1  4/18/1950 0:00:00     0130       CST     97     MOBILE
-## 2       1  4/18/1950 0:00:00     0145       CST      3    BALDWIN
-## 3       1  2/20/1951 0:00:00     1600       CST     57    FAYETTE
-## 4       1   6/8/1951 0:00:00     0900       CST     89    MADISON
-## 5       1 11/15/1951 0:00:00     1500       CST     43    CULLMAN
-## 6       1 11/15/1951 0:00:00     2000       CST     77 LAUDERDALE
+##   STATE__           BGN_DATE BGN_TIME TIME_ZONE COUNTY COUNTYNAME STATE
+## 1       1  4/18/1950 0:00:00     0130       CST     97     MOBILE    AL
+## 2       1  4/18/1950 0:00:00     0145       CST      3    BALDWIN    AL
+## 3       1  2/20/1951 0:00:00     1600       CST     57    FAYETTE    AL
+## 4       1   6/8/1951 0:00:00     0900       CST     89    MADISON    AL
+## 5       1 11/15/1951 0:00:00     1500       CST     43    CULLMAN    AL
+## 6       1 11/15/1951 0:00:00     2000       CST     77 LAUDERDALE    AL
 ```
 
 
-We are retrieving the FATALITIES to a dataset called fatality and PROPDMG to a dataset called propdmg. We will use the summary function in R to show some simple summaries of these two datasets. 
+From this study, We are interesting FATALITIES and PROPDMG variables from the dataset. We are retrieving FATALITIES to a dataset called fatality and PROPDMG to a dataset called propdmg. We will use the summary function in R to show some simple summaries of these two datasets. 
 
 
 ```r
-# show the first few line of records
-evtype <- dt0$EVTYPE
 fatality <- dt0$FATALITIES
 summary(fatality)
 ```
@@ -79,11 +75,16 @@ summary(propdmg)
 ##    0.00    0.00    0.00   12.06    0.50 5000.00
 ```
 
-From above code you can see that there are no missing values for both FATALITIES and PROMDMG variables from the original datasets and this is good for the following data analysis. 
+From the simple summaries we can see that there are no missing values for both FATALITIES and PROMDMG variables from the original datasets and this is good for the following data analysis. 
 
 
 #Result
 ## Entire U.S. analysis
+### Find out which severe weather event is most deadly accorss the U.S. from 1950 to November 2011. 
+
+We will sum up all the death records by severe weather event type and sum up all the property damage by the severe weather event type. Then we will find out which severe weather event from both sum of sub dataset has the maximum value for total death and total property damage. 
+
+
 
 ```r
 dt1 <- aggregate(FATALITIES ~ EVTYPE, data = dt0, FUN=sum)
@@ -92,18 +93,14 @@ event1 <- dt1[which.max(dt1$FATALITIES),1]
 total_death <- dt1[which.max(dt1$FATALITIES),2]
 
 dt2 <- aggregate(PROPDMG ~ EVTYPE, data = dt0, FUN = sum)
-event2 <- dt2[which.max(dt2$PROMDMG),1]
+event2 <- dt2[which.max(dt2$PROPDMG),1]
 total_damage <- dt2[which.max(dt2$PROPDMG),2]
 ```
 
-TORNADO is the most deadly severe weather event accross U.S. from 1950 to November 2011. 
-Total death for TORNADO is 5633.
-
- is the most costly severe weather event accross U.S. from 1950 to November 2011. 
-Total damage cost for  is 3212258.16 millions U.S. dollars. 
+After the analysis, we find out - **TORNADO** is the most deadly severe weather event accross U.S. from 1950 to November 2011 which has a total **5633** people dead and **TORNADO** is the most costly severe weather event accross U.S. from 1950 to November 2011 which cause U.S. **3212258.16** millions U.S. dollars. 
 
 
-Following graph will show the top 10 deadly severe weather events accross U.S. from 1950 to November 2011.
+Following graph will show the top tep deadly severe weather events accross U.S. from 1950 to November 2011 with most casualties. 
 
 
 
@@ -146,7 +143,7 @@ barplot(dt1_top10$FATALITIES,main="Top 10 deadly severe weather events", ylab="T
 
 ![](assign2_files/figure-html/unnamed-chunk-1-1.png) 
 
-Following graph will show the top 10 costly severe weather events accross U.S. from 1950 to November 2011.
+Following graph will show the top 10 costly severe weather events accross U.S. from 1950 to November 2011 with millions dollars lost. 
 
 
 
