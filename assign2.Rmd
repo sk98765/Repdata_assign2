@@ -1,0 +1,76 @@
+---
+title: "Population Health and Economy impact by sever weather events from 1950 to 2012"
+author: "Shinkuang Chang"
+date: "July 23, 2015"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+#Synopsis
+In this report we try to find out which severe weather event is most harmful to population and which severe weather event is most costly to economy through all the states. This study will be based on the storm data compiled by National Oceanic and Atmospheric Administration (NOAA). This data covers the severe wether events from 1950 to November of 2011. 
+
+
+The data set is coming from ...
+
+#Loading and Processing the Raw Data
+##Reading the whole data 
+
+```{r load}
+# Disable scientific notation
+options(scipen=999)
+
+filename <- "repdata_data_StormData.csv"
+# Read NOAA severe weather events data to a data frame
+dt0 <- read.table(filename,sep=",",header=T,na.strings = "")
+```
+
+```{r}
+dim(dt0)
+num_records <- NROW(dt0)
+```
+There are `r num_records` in `r filename` dataset. 
+
+## Checking data set especially FATALITIES, and PROPDMG
+Show first few rows of records 
+
+```{r}
+head(dt0)
+```
+
+
+We are retrieving the FATALITIES to a dataset called fatality and PROPDMG to a dataset called propdmg. We will use the summary function in R to show some simple summaries of these two datasets. 
+
+```{r}
+# show the first few line of records
+evtype <- dt0$EVTYPE
+fatality <- dt0$FATALITIES
+summary(fatality)
+propdmg <- dt0$PROPDMG
+summary(propdmg)
+```
+
+From above code you can see that there are no missing values for both FATALITIES and PROMDMG variables from the original datasets and this is good for the following data analysis. 
+
+
+#Result
+## Entire U.S. analysis
+```{r}
+
+```
+
+
+```{r}
+
+#dt0 <- read.table("repdata_data_StormData.csv",sep=",",comment.char = "#",header=T,na.strings = "")
+
+#cnames <- readLines("repdata_data_StormData.csv",1)
+```
+
+
+
+```{r, echo=FALSE}
+#plot(cars)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
