@@ -140,8 +140,7 @@ dt1_xaxis_label
 ```
 
 ```r
-barplot(dt1_top10$FATALITIES,main="Top 10 deadly severe weather events", ylab="Total death")
-axis(1,at=1:10,lab=dt1_xaxis_label)
+barplot(dt1_top10$FATALITIES,main="Top 10 deadly severe weather events", ylab="Total death",names.arg = dt1_xaxis_label, las = 2)
 ```
 
 ![](assign2_files/figure-html/unnamed-chunk-1-1.png) 
@@ -184,8 +183,7 @@ dt2_xaxis_label
 ```
 
 ```r
-barplot(dt2_top10$PROPDMG,main="Top 10 costly severe weather events", ylab="Total damage in millions")
-axis(1,at=1:10,lab=dt2_xaxis_label)
+barplot(dt2_top10$PROPDMG,main="Top 10 costly severe weather events", ylab="Total damage in millions",names.arg = dt2_xaxis_label, las = 2)
 ```
 
 ![](assign2_files/figure-html/unnamed-chunk-2-1.png) 

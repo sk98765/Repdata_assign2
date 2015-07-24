@@ -83,8 +83,8 @@ dt1_top10 <- dt1_ordered[1:10,]
 dt1_top10
 dt1_xaxis_label <- dt1_top10$EVTYPE
 dt1_xaxis_label
-barplot(dt1_top10$FATALITIES,main="Top 10 deadly severe weather events", ylab="Total death")
-axis(1,at=1:10,lab=dt1_xaxis_label)
+barplot(dt1_top10$FATALITIES,main="Top 10 deadly severe weather events", ylab="Total death",names.arg = dt1_xaxis_label, las = 2)
+
 ```
 
 Following graph will show the top 10 costly severe weather events accross U.S. from 1950 to November 2011.
@@ -96,6 +96,6 @@ dt2_top10 <- dt2_ordered[1:10,]
 dt2_top10
 dt2_xaxis_label <- dt2_top10$EVTYPE
 dt2_xaxis_label
-barplot(dt2_top10$PROPDMG,main="Top 10 costly severe weather events", ylab="Total damage in millions")
-axis(1,at=1:10,lab=dt2_xaxis_label)
+barplot(dt2_top10$PROPDMG,main="Top 10 costly severe weather events", ylab="Total damage in millions",names.arg = dt2_xaxis_label, las = 2)
+
 ```
